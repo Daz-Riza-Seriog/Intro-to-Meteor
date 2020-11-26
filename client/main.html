@@ -1,0 +1,44 @@
+<head>
+  <title>image_share</title>
+</head>
+
+<body>
+  <h1>Hello from COLOMBIA</h1>
+  <h4>Welcome to Meteor & Coursera!</h4>
+  {{> hello}}
+  {{> info}}
+  <div class="container">
+    {{> images}}
+  </div>
+</body>
+
+<template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>
+
+<template name="info">
+  <h2>Learn Meteor!</h2>
+  <ul>
+    <li><a href="https://www.meteor.com/try" target="_blank">Do the Tutorial</a></li>
+    <li><a href="http://guide.meteor.com" target="_blank">Follow the Guide</a></li>
+    <li><a href="https://docs.meteor.com" target="_blank">Read the Docs</a></li>
+    <li><a href="https://forums.meteor.com" target="_blank">Discussions</a></li>
+  </ul>
+</template>
+
+<template name="images">
+  <div class="row">
+    {{#each images}}
+    <div class="col-xs-12 col-md-3">
+      <div class="thumbnail">
+        <img class="js-image" src="{{img_src}}" alt="{{img_alt}}">
+      </div>
+      <div class="caption">
+        <h3>thumbnail name</h3>
+        <p>Description of the image</p>
+      </div>
+    </div> <!--close Col-->
+    {{/each}}
+  </div> <!--close row-->
+</template>
