@@ -1,0 +1,73 @@
+<head>
+  <title>image_share</title>
+</head>
+
+<body>
+  {{> image_add_form}}
+  <h1>Hello from COLOMBIA</h1>
+  <h4>Welcome to Meteor & Coursera!</h4>
+  {{> hello}}
+  {{> info}}
+  <div class="container">
+    {{> images}}
+  </div>
+</body>
+
+
+<template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>
+
+<template name="info">
+  <h2>Learn Meteor!</h2>
+  <ul>
+    <li><a href="https://www.meteor.com/try" target="_blank">Do the Tutorial</a></li>
+    <li><a href="http://guide.meteor.com" target="_blank">Follow the Guide</a></li>
+    <li><a href="https://docs.meteor.com" target="_blank">Read the Docs</a></li>
+    <li><a href="https://forums.meteor.com" target="_blank">Discussions</a></li>
+  </ul>
+</template>
+
+<template name="image_add_form">
+  <div class="modal fade" id="image_add_form">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title"></div>
+      </div>
+      <div class="moal-body">
+        <form class="js-add-image">
+          <input type="text" name="img_src">
+          <br/><input type="text" name="img_alt">
+          <button class="btn btn-success">SAVE</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-warning" data-dismiss="modal">CANCEL</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="images">
+  <button class="btn btn-success js-show-image-form">Add images</button>
+  <div class="row">
+    {{#each images}}
+    <div class="col-xs-12 col-md-3" id="{{_id}}">
+      <div class="thumbnail">
+        <img class="js-image" src="{{img_src}}" alt="{{img_alt}}">
+
+        <div class="caption">
+          <h3>Rating: {{rating}}</h3>
+          <p>{{img_alt}}</p>
+          <p>
+            {{> starsRating id=_id mutable=true class='js-rate-image'}}
+          </p>
+
+          <button class="js-del-image btn btn-warning" type="button" name="button">delete</button>
+        </div>
+      </div>
+    </div> <!--close Col-->
+    {{/each}}
+  </div> <!--close row-->
+</template>
