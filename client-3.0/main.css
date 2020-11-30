@@ -1,0 +1,11 @@
+body {
+  padding: 20px;
+  padding-top: 60px;
+  font-family: sans-serif;
+};
+.thumbnail{
+  height: 500px;
+};
+.thumbnail-img{
+  max-height: 300px;
+};
