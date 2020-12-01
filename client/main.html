@@ -3,17 +3,41 @@
 </head>
 
 <body>
-  <h1>Hello from COLOMBIA</h1>
-  <h4>Welcome to Meteor & Coursera!</h4>
-  {{> hello}}
-  {{> info}}
-  <div class="container">
-    {{> images}}
-  </div>
+
 </body>
 
+<template name="ApplicationLayout">
+  {{>yield "navbar"}}
+  {{>yield "main"}}
+</template>
+
+<template name="image">
+  <div class="container">
+    <h6>{{img_alt}}</h6>
+    <a href="/images"></a><img class="single-img" src="/{{img_src}}">
+  </div>
+</template>
+
+<template name="navbar">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    {{> loginButtons}}
+  </nav>
+</template>
+
+<template name="regards">
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Hello from COLOMBIA</h1>
+      <h4>Welcome to Meteor & Coursera, Mr/Ms {{username}}</h4>
+      <a href="/images" class="btn btn-info">ENTER TO IMAGES</a>
+    </div>
+  </div>
+</template>
+
 <template name="hello">
+  {{#if currentUser}}
   <button>Click Me</button>
+  {{/if}}
   <p>You've pressed the button {{counter}} times.</p>
 </template>
 
@@ -27,18 +51,55 @@
   </ul>
 </template>
 
+<template name="image_add_form">
+  <div class="modal fade" id="image_add_form">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title"></div>
+      </div>
+      <div class="modal-body">
+        <form class="js-add-image">
+          <input type="text" name="img_src">
+          <br/><input type="text" name="img_alt">
+          <button class="btn btn-success">SAVE</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-warning" data-dismiss="modal">CANCEL</button>
+      </div>
+    </div>
+  </div>
+</template>
+
 <template name="images">
-  <div class="row">
-    {{#each images}}
-    <div class="col-xs-12 col-md-3">
-      <div class="thumbnail">
-        <img class="js-image" src="{{img_src}}" alt="{{img_alt}}">
-      </div>
-      <div class="caption">
-        <h3>thumbnail name</h3>
-        <p>Description of the image</p>
-      </div>
-    </div> <!--close Col-->
-    {{/each}}
-  </div> <!--close row-->
+  <div class="container">
+    {{#if currentUser}}
+    <button class="btn btn-success js-show-image-form">Add images</button>
+    {{/if}}
+    <h6>
+      {{#if filtering_images}}
+        Showing Images by user {{getFilterUser}}. <a href="#" class="js-unset-image-user-filter">Remove Filter</a>
+      {{/if}}
+    </h6>
+    <div class="row">
+      {{#each images}}
+      <div class="col-xs-12 col-md-3" id="{{_id}}">
+        <div class="thumbnail">
+          <a href="/image/{{_id}}"><img class="js-image thumbnail-img" src="{{img_src}}" alt="{{img_alt}}" ></a>
+
+          <div class="caption">
+            <h3>Rating: {{rating}}</h3>
+            <p>User:<a href="#" class="js-set-image-user-filter">{{getUser createdBy}}</a></p>
+            <p>{{img_alt}}</p>
+            <p>
+              {{> starsRating id=_id mutable=true class='js-rate-image'}}
+            </p>
+
+            <button class="js-del-image btn btn-warning" type="button" name="button">delete</button>
+          </div>
+        </div>
+      </div> <!--close Col-->
+      {{/each}}
+    </div> <!--close row-->
+  </div> <!--close container -->
 </template>
